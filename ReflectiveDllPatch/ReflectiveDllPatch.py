@@ -27,7 +27,7 @@ def get_patch_stub(pe_file,func_offset):
 
     if pe_file.FILE_HEADER.Machine == 0x014c:
         is64 = False
-    elif pe_file.FILE_HEADER.Machine ==0x0200 or pe_file.FILE_HEADER.Machine ==0x8664:
+    elif pe_file.FILE_HEADER.Machine ==0x0200 or pe_file.FILE_HEADER.Machine == 0x8664:
         is64 =True
     else:
         print("[-]unknow the format of this pe file")
@@ -76,13 +76,13 @@ def patch_dll(pe_path,func_name):
     filearray = open(pe_path,'rb').read()
     print("[+] loaded nameof %s"% (pe_path))
 
-    patch_dll_file = patch_stub + filearray[len(patch_stub):]
+    patch_pe_file = patch_stub + filearray[len(patch_stub):]
     print("[+] patched offset %s" % (func_offset.hex()))
 
-    patch_dll_name = "patch-" +pe_path
-    open(patch_dll_name,'wb').write(patch_dll_file)
-    print("[+] wrote nameof %s"% (patch_dll_name))
-    
+    patch_pe_name = "patch-" +pe_path
+    open(patch_pe_name,'wb').write(patch_pe_file)
+    print("[+] wrote nameof %s"% (patch_pe_name))
+
 if __name__ == '__main__':
     a = len(sys.argv)
     if len(sys.argv) != 3:
